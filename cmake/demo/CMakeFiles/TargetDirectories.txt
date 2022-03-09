@@ -1,0 +1,2 @@
+/weishengying/learning-notes/cmake/demo/CMakeFiles/rebuild_cache.dir
+/weishengying/learning-notes/cmake/demo/CMakeFiles/edit_cache.dir

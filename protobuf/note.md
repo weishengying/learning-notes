@@ -55,3 +55,14 @@ protoc -I=$SRC_DIR --cpp_out=$DST_DIR $SRC_DIR/addressbook.proto
 ```
 
 ## The Protocol Buffer API
+参考官方文档
+[文档](https://developers.google.com/protocol-buffers/docs/cpptutorial#parsing-and-serialization)
+
+## Writing A Message
+参考官方文档
+
+## Reading A Message
+参考官方文档
+
+# 总结
+protobuf提供一个自定义储存格式的工具。通过.proto文件定义数据存储方式，然后利用protoc工具生成读写定义数据的接口！

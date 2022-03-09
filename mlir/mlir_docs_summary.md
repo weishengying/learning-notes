@@ -25,3 +25,12 @@ MLIR 表达式优化 -- 部分Lowering -- https://zhuanlan.zhihu.com/p/107137298
 MLIR表达式Lowering到LLVM IR -- https://zhuanlan.zhihu.com/p/108386819
 
 MLIR向源语言添加struct类型 -- https://zhuanlan.zhihu.com/p/10
+
+[Operation Definition Specification (ODS)](https://mlir.llvm.org/docs/OpDefinitions/)
+
+
+
+ODS 要点总结
+[ODS 要点总结](https://mp.weixin.qq.com/s/SFHWUm63BqsD9SWwuW83mA)
+
+https://www.tensorflow.org/mlir
