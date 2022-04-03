@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/weishengying/learning-notes/mlir/project/build/_deps/external_llvm-subbuild/CMakeFiles/external_llvm-populate"
+		},
+		{
+			"file" : "/weishengying/learning-notes/mlir/project/build/_deps/external_llvm-subbuild/CMakeFiles/external_llvm-populate.rule"
+		},
+		{
+			"file" : "/weishengying/learning-notes/mlir/project/build/_deps/external_llvm-subbuild/CMakeFiles/external_llvm-populate-complete.rule"
+		},
+		{
+			"file" : "/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-install.rule"
+		},
+		{
+			"file" : "/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-mkdir.rule"
+		},
+		{
+			"file" : "/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-download.rule"
+		},
+		{
+			"file" : "/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-update.rule"
+		},
+		{
+			"file" : "/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-patch.rule"
+		},
+		{
+			"file" : "/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-configure.rule"
+		},
+		{
+			"file" : "/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-build.rule"
+		},
+		{
+			"file" : "/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-test.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"external_llvm-populate"
+		],
+		"name" : "external_llvm-populate"
+	}
+}

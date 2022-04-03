@@ -1,0 +1,14 @@
+# Target labels
+ external_llvm-populate
+# Source files and their labels
+/weishengying/learning-notes/mlir/project/build/_deps/external_llvm-subbuild/CMakeFiles/external_llvm-populate
+/weishengying/learning-notes/mlir/project/build/_deps/external_llvm-subbuild/CMakeFiles/external_llvm-populate.rule
+/weishengying/learning-notes/mlir/project/build/_deps/external_llvm-subbuild/CMakeFiles/external_llvm-populate-complete.rule
+/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-install.rule
+/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-mkdir.rule
+/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-download.rule
+/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-update.rule
+/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-patch.rule
+/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-configure.rule
+/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-build.rule
+/weishengying/learning-notes/mlir/project/third-party/llvm/src/external_llvm-populate-stamp/external_llvm-populate-test.rule

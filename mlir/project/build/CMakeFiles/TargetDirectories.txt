@@ -1,0 +1,13 @@
+/weishengying/learning-notes/mlir/project/build/CMakeFiles/edit_cache.dir
+/weishengying/learning-notes/mlir/project/build/CMakeFiles/mlir-doc.dir
+/weishengying/learning-notes/mlir/project/build/CMakeFiles/mlir-generic-headers.dir
+/weishengying/learning-notes/mlir/project/build/CMakeFiles/mlir-headers.dir
+/weishengying/learning-notes/mlir/project/build/CMakeFiles/rebuild_cache.dir
+/weishengying/learning-notes/mlir/project/build/CMakeFiles/intrinsics_gen.dir
+/weishengying/learning-notes/mlir/project/build/CMakeFiles/omp_gen.dir
+/weishengying/learning-notes/mlir/project/build/CMakeFiles/acc_gen.dir
+/weishengying/learning-notes/mlir/project/build/CMakeFiles/mlir-tablegen-targets.dir
+/weishengying/learning-notes/mlir/project/build/IR/CMakeFiles/edit_cache.dir
+/weishengying/learning-notes/mlir/project/build/IR/CMakeFiles/rebuild_cache.dir
+/weishengying/learning-notes/mlir/project/build/IR/CMakeFiles/MLIRinfrt_opsAttributesIncGen.dir
+/weishengying/learning-notes/mlir/project/build/IR/CMakeFiles/MLIRinfrt_baseIncGen.dir
