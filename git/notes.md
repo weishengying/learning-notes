@@ -1,9 +1,32 @@
 
 
-# 杂记
-1.拉取别人的pr   git fetch remote pull/$pr_id/head:$new_name
-2.删除远程分支: git push origin --delete [branchname]
-3.回退：git reset --hard id
+# 常用git命令
+1.拉取别人的pr
+```shell
+git fetch remote pull/$pr_id/head:$new_name
+```
+
+2.删除远程分支
+```shell
+git push origin --delete [branchname]
+```
+
+3.回退
+```shell
+git reset --hard id
+```
+4.git显示中文
+```shell
+git config --global core.quotepath false
+```
+
+5.git设置tocken
+
+clone新的项目时，拼接token和http链接：https://$GH_TOKEN@github.com/owner/repo.git
+```shell
+git remote rm origin
+git remote add origin https://$GH_TOKEN@github.com/owner/repo.git
+```
 
 # git stash 详解
 [参考文档](https://blog.csdn.net/stone_yw/article/details/80795669)

@@ -1,2 +1,7 @@
 # Ignore third-party
+<<<<<<< HEAD
 third-party/*
+=======
+third-party/*
+./build
+>>>>>>> d7279cce541af9af16b8ad14b73085074ed2a6d1

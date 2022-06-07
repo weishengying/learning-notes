@@ -1,6 +1,20 @@
-# 杂记
-1、输出重定向：2>&1
-2、 ldconfig
+# 常见问题
+1、输出重定向
+```shell
+2>&1
+```
+
+2、 运行时遇到库找不到的错误
+如：
+  python3: error while loading shared libraries: libpython3.7m.so.1.0: cannot open shared object file: No such file or directory.
+
+这是因为：
+
+编译安装完成后，没有将 python/lib 下的文件放入默认库 /usr/lib 或 /lib 中，导致初始化时无法加载库文件。
+
+修改 /etc/ld.so.conf.d 目录下的 libc.conf 或者 python3.conf 即可，将/usr/python/lib 作为一行插入，保存退出。然后运行 ldconfig 命令。
+
+linux 下的共享库机制采用了类似于高速缓存的机制，将库信息保存在 /etc/ld.so.cache 里边，程序连接的时候首先从这个文件里边查找，然后再到 ld.so.conf 的路径里边去详细找，这就是为什么修改了 conf 文件要重新运行一下 ldconfig 的原因。
 
 # vim 
 ## vim配置文件设置
