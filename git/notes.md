@@ -1,17 +1,17 @@
 
 
 # 常用git命令
-1.拉取别人的pr
+1. 拉取别人的pr
 ```shell
 git fetch remote pull/$pr_id/head:$new_name
 ```
 
-2.删除远程分支
+2. 删除远程分支
 ```shell
 git push origin --delete [branchname]
 ```
 
-3.回退
+3. 回退
 ```shell
 git reset --hard id
 ```
@@ -20,14 +20,30 @@ git reset --hard id
 git config --global core.quotepath false
 ```
 
-5.git设置tocken
+5. git设置tocken
 
 clone新的项目时，拼接token和http链接：https://$GH_TOKEN@github.com/owner/repo.git
 ```shell
 git remote rm origin
 git remote add origin https://$GH_TOKEN@github.com/owner/repo.git
 ```
+6. .gitignore的用法
 
+[.gitignore的用法](https://blog.csdn.net/weixin_45318845/article/details/120740012)
+
+常用匹配示例
+```shell
+bin/: 忽略当前路径下的bin文件夹，该文件夹下的所有内容都会被忽略，不忽略 bin 文件
+/bin: 忽略根目录下的bin文件
+/*.c: 忽略 cat.c，不忽略 build/cat.c
+debug/*.obj: 忽略 debug/io.obj，不忽略 debug/common/io.obj 和 tools/debug/io.obj
+**/foo: 忽略/foo, a/foo, a/b/foo等
+a/**/b: 忽略a/b, a/x/b, a/x/y/b等
+!/bin/run.sh: 不忽略 bin 目录下的 run.sh 文件
+*.log: 忽略所有 .log 文件
+config.php: 忽略当前路径的 config.php 文件
+
+```
 # git stash 详解
 [参考文档](https://blog.csdn.net/stone_yw/article/details/80795669)
 
