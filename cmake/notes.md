@@ -1,12 +1,12 @@
 
-# 1.常用cmake操作
-1.查看所有的target：  
+# 1.简单 cmake 操作
+**1.1 查看所有的target**
 ```shell
 cmake --build . --target help  
 make help
 ```
 
-2.cmake过程中提示找不多pythonlib ：
+**1.2 cmake过程中提示找不多pythonlib**
 
 [参考](https://stackoverflow.com/questions/24174394/cmake-is-not-able-to-find-python-libraries)
 
@@ -16,7 +16,21 @@ make help
 -DPYTHON_LIBRARY=$(python3.7 -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR')")
 ```
      
-# 2.常见 cmake 问题
+**1.3 cmake生成依赖关系图**
+```shell
+# 先安装 dot 工具
+sudo apt install graphviz
+
+# 生成 cmake 依赖关系 dot 图
+cd build
+cmake --graphviz=foo.dot ..
+
+# 根据 dot 图生成图片
+dot -Tpng foo.dot -o foo.png
+```
+
+
+# 2.常见 cmake 命令
 ## 2.1 动态库可以链接静态库吗
 
 > 静态库：在程序编译时会被链接到⽬标代码中，程序运⾏时可独立运行，将不再需要该静态库。
@@ -68,3 +82,146 @@ add_executable(main main.cc)
 target_link_libraries(main test)
 
 ```
+
+## 2.2 add_dependencies 的应用
+> 注意： add_dependencies 仅仅保证 target 之间 build 的相对顺序， 并不会形成 `依赖关系`！
+
+[cmake add_dependencies](https://cmake.org/cmake/help/v3.16/command/add_dependencies.html?highlight=add_dependencie#command:add_dependencies)
+
+## 2.3 依赖的传递
+以 2.1 中的 demo 为例， cmake 改为如下：
+```cpp
+project(demo_2.1)
+cmake_minimum_required(VERSION 3.16)
+
+add_library(fun SHARED fun.cc)
+
+add_library(test SHARED test.cc)
+
+target_link_libraries(test fun)
+
+add_executable(main main.cc)
+
+target_link_libraries(main test)
+```
+
+可执行文件 main 链接到 test 库， test 库链接到 fun 库， 那么在 main 中可以直接使用 fun 函数吗。
+
+答案是可以的， 从 build/CMakeFiles/main.dir/link.txt， 可以查看可执行文件 main 的链接关系：
+```shell
+/usr/bin/c++     CMakeFiles/main.dir/main.cc.o  -o main  -Wl,-rpath,/weishengying/learning-notes/cmake/demo/2.3/build libtest.so libfun.so 
+```
+
+可以看出 main 同时链接到了 libtest.so libfun.so 这两个库， 这是因为链接的传递性。
+
+test ---> fun,  然后 main --> test, 由于传递性， test 同时 --> fun。
+
+可以通过 `LINK_PRIVATE` 关键字， 阻止链接关系的传递性。
+```shell
+target_link_libraries(test LINK_PRIVATE fun)
+```
+这样在 main 中就无法使用 fun 函数。
+```shell
+/usr/local/bin/ld: CMakeFiles/main.dir/main.cc.o: undefined reference to symbol '_Z3funv'
+```
+
+## 动态库符号的 global， local 属性
+在上述的 main test fun 示例中， main 中调用 test 函数， test 中调用 fun 函数， main 中也可以直接调用 fun 函数。
+现在只想让用户在 main 中调用 test 函数， 禁止用户在 main 中调用 fun 函数， 有什么办法呢。
+
+方法如下：我们在 fun.so中 将 fun 函数符号设为 local， 这样用户就无法使用了。
+
+```cpp
+project(demo_2.4)
+cmake_minimum_required(VERSION 3.16)
+
+add_library(fun SHARED fun.cc)
+
+add_library(test SHARED test.cc)
+
+target_link_libraries(test fun)
+
+set(LINK_FLAGS
+        "-Wl,--version-script ${CMAKE_CURRENT_SOURCE_DIR}/a.map")
+set_target_properties(test PROPERTIES LINK_FLAGS "${LINK_FLAGS}")
+set_target_properties(fun PROPERTIES LINK_FLAGS "${LINK_FLAGS}")
+
+add_executable(main main.cc)
+
+target_link_libraries(main test)
+```
+
+这样在 main 中使用 fun 函数的话， 编译会报错：
+```shell
+/usr/local/bin/ld: CMakeFiles/main.dir/main.cc.o: in function `main':
+main.cc:(.text+0x5): undefined reference to `fun()'
+```
+
+其原理是通过 
+```cpp
+set(LINK_FLAGS
+        "-Wl,--version-script ${CMAKE_CURRENT_SOURCE_DIR}/a.map")
+set_target_properties(test PROPERTIES LINK_FLAGS "${LINK_FLAGS}")
+set_target_properties(fun PROPERTIES LINK_FLAGS "${LINK_FLAGS}")
+```
+和 a.map
+```shell
+{
+	global:
+		*test*;
+	local:
+		*;
+};
+```
+来控制 libtest.so 和 libfun.so 中函数符号的可见性。
+
+```shell
+nm -C libtest.so 
+0000000000004028 b completed.7344
+                 w __cxa_finalize@@GLIBC_2.2.5
+0000000000001050 t deregister_tm_clones
+00000000000010c0 t __do_global_dtors_aux
+0000000000003da8 d __do_global_dtors_aux_fini_array_entry
+0000000000004020 d __dso_handle
+0000000000003db0 d _DYNAMIC
+0000000000001114 t _fini
+0000000000001100 t frame_dummy
+0000000000003da0 d __frame_dummy_init_array_entry
+00000000000020a0 r __FRAME_END__
+0000000000004000 d _GLOBAL_OFFSET_TABLE_
+                 w __gmon_start__
+0000000000002000 r __GNU_EH_FRAME_HDR
+0000000000001000 t _init
+                 w _ITM_deregisterTMCloneTable
+                 w _ITM_registerTMCloneTable
+0000000000001080 t register_tm_clones
+0000000000004028 d __TMC_END__
+                 U fun()
+
+nm -C libfun.so 
+0000000000004040 b completed.7344
+                 U __cxa_atexit@@GLIBC_2.2.5
+                 w __cxa_finalize@@GLIBC_2.2.5
+0000000000001080 t deregister_tm_clones
+00000000000010f0 t __do_global_dtors_aux
+0000000000003db0 d __do_global_dtors_aux_fini_array_entry
+0000000000004038 d __dso_handle
+0000000000003db8 d _DYNAMIC
+00000000000011c8 t _fini
+0000000000001130 t frame_dummy
+0000000000003da0 d __frame_dummy_init_array_entry
+0000000000002100 r __FRAME_END__
+0000000000004000 d _GLOBAL_OFFSET_TABLE_
+00000000000011b0 t _GLOBAL__sub_I_fun.cc
+                 w __gmon_start__
+0000000000002010 r __GNU_EH_FRAME_HDR
+0000000000001000 t _init
+                 w _ITM_deregisterTMCloneTable
+                 w _ITM_registerTMCloneTable
+00000000000010b0 t register_tm_clones
+0000000000004040 d __TMC_END__
+0000000000001135 t fun()
+```
+> 一个`T`, 一个`t`;
+> The symbol type.  At least the following types are used; others are, as well, depending on the object file format.  If
+  lowercase, the symbol is usually local; if uppercase, the symbol is global (external).  There are however a few lowercase symbols that are shown for special global symbols ("u", "v" and "w").
