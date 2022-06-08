@@ -16,3 +16,6 @@ make help
 -DPYTHON_LIBRARY=$(python3.7 -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR')")
 ```
      
+# 常见 cmake 问题
+1. **动态库可以链接静态库吗**
+
