@@ -223,5 +223,8 @@ nm -C libfun.so
 0000000000001135 t fun()
 ```
 > 一个`T`, 一个`t`;
+
+[nm指令参考](https://man7.org/linux/man-pages/man1/nm.1.html)
+
 > The symbol type.  At least the following types are used; others are, as well, depending on the object file format.  If
   lowercase, the symbol is usually local; if uppercase, the symbol is global (external).  There are however a few lowercase symbols that are shown for special global symbols ("u", "v" and "w").
