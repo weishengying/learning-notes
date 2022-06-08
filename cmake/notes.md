@@ -125,7 +125,7 @@ target_link_libraries(test LINK_PRIVATE fun)
 /usr/local/bin/ld: CMakeFiles/main.dir/main.cc.o: undefined reference to symbol '_Z3funv'
 ```
 
-## 动态库符号的 global， local 属性
+## 2.4 动态库符号的 global， local 属性
 在上述的 main test fun 示例中， main 中调用 test 函数， test 中调用 fun 函数， main 中也可以直接调用 fun 函数。
 现在只想让用户在 main 中调用 test 函数， 禁止用户在 main 中调用 fun 函数， 有什么办法呢。
 
