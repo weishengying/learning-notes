@@ -1,12 +1,12 @@
 
 # 1.简单 cmake 操作
-**1.1 查看所有的target**
+## 1.1 查看所有的target**
 ```shell
 cmake --build . --target help  
 make help
 ```
 
-**1.2 cmake过程中提示找不多pythonlib**
+## 1.2 cmake过程中提示找不多pythonlib**
 
 [参考](https://stackoverflow.com/questions/24174394/cmake-is-not-able-to-find-python-libraries)
 
@@ -16,7 +16,18 @@ make help
 -DPYTHON_LIBRARY=$(python3.7 -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR')")
 ```
      
-**1.3 cmake生成依赖关系图**
+**1.3 cmake指定编译器**
+1. 使用环境变量
+```shell
+CC=/usr/bin/gcc-4.2 CXX=/usr/bin/g++-4.2
+```
+2. use cmake -D
+推荐使用这种方式
+```shell
+cmake -G "Your Generator" -DCMAKE_CXX_COMPILER=/usr/local/gcc-8.2/bin/g++  -DCMAKE_C_COMPILER=/usr/local/gcc-8.2/bin/gcc path/to/your/source
+```
+
+**1.4 cmake生成依赖关系图**
 ```shell
 # 先安装 dot 工具
 sudo apt install graphviz
@@ -29,9 +40,26 @@ cmake --graphviz=foo.dot ..
 dot -Tpng foo.dot -o foo.png
 ```
 
+# 2.编译过程中的常见报错
+## 2.1 cc1: all warnings being treated as errors**
+在 CMakeCache.txt 中设置
 
-# 2.常见 cmake 命令
-## 2.1 动态库可以链接静态库吗
+```shell
+# Flags used by the CXX compiler during all build types.
+CMAKE_CXX_FLAGS:STRING=-Wno-error
+
+# Flags used by the C compiler during all build types.
+CMAKE_C_FLAGS:STRING=-Wno-error
+```
+
+或 cmake 之前设置环境变量 
+```shell
+export CFLAGS="-Wno-error"
+export CXXFLAGS="-Wno-error"
+```
+
+# 3.常见 cmake 操作
+## 3.1 动态库可以链接静态库吗
 
 > 静态库：在程序编译时会被链接到⽬标代码中，程序运⾏时可独立运行，将不再需要该静态库。
 
@@ -83,12 +111,12 @@ target_link_libraries(main test)
 
 ```
 
-## 2.2 add_dependencies 的应用
+## 3.2 add_dependencies 的应用
 > 注意： add_dependencies 仅仅保证 target 之间 build 的相对顺序， 并不会形成 `依赖关系`！
 
 [cmake add_dependencies](https://cmake.org/cmake/help/v3.16/command/add_dependencies.html?highlight=add_dependencie#command:add_dependencies)
 
-## 2.3 依赖的传递
+## 3.3 依赖的传递
 以 2.1 中的 demo 为例， cmake 改为如下：
 ```cpp
 project(demo_2.1)
@@ -125,7 +153,7 @@ target_link_libraries(test LINK_PRIVATE fun)
 /usr/local/bin/ld: CMakeFiles/main.dir/main.cc.o: undefined reference to symbol '_Z3funv'
 ```
 
-## 2.4 动态库符号的 global， local 属性
+## 3.4 动态库符号的 global， local 属性
 在上述的 main test fun 示例中， main 中调用 test 函数， test 中调用 fun 函数， main 中也可以直接调用 fun 函数。
 现在只想让用户在 main 中调用 test 函数， 禁止用户在 main 中调用 fun 函数， 有什么办法呢。
 
