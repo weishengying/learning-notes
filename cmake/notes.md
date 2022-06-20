@@ -1,12 +1,12 @@
 
 # 1.简单 cmake 操作
-## 1.1 查看所有的target**
+## 1.1 查看所有的target
 ```shell
 cmake --build . --target help  
 make help
 ```
 
-## 1.2 cmake过程中提示找不多pythonlib**
+## 1.2 cmake过程中提示找不多pythonlib
 
 [参考](https://stackoverflow.com/questions/24174394/cmake-is-not-able-to-find-python-libraries)
 
@@ -16,7 +16,7 @@ make help
 -DPYTHON_LIBRARY=$(python3.7 -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR')")
 ```
      
-**1.3 cmake指定编译器**
+## 1.3 cmake指定编译器
 1. 使用环境变量
 ```shell
 CC=/usr/bin/gcc-4.2 CXX=/usr/bin/g++-4.2
@@ -27,7 +27,7 @@ CC=/usr/bin/gcc-4.2 CXX=/usr/bin/g++-4.2
 cmake -G "Your Generator" -DCMAKE_CXX_COMPILER=/usr/local/gcc-8.2/bin/g++  -DCMAKE_C_COMPILER=/usr/local/gcc-8.2/bin/gcc path/to/your/source
 ```
 
-**1.4 cmake生成依赖关系图**
+## 1.4 cmake生成依赖关系图
 ```shell
 # 先安装 dot 工具
 sudo apt install graphviz
@@ -43,13 +43,29 @@ dot -Tpng foo.dot -o foo.png
 # 2.编译过程中的常见报错
 ## 2.1 cc1: all warnings being treated as errors**
 在 CMakeCache.txt 中设置
-
 ```shell
 # Flags used by the CXX compiler during all build types.
 CMAKE_CXX_FLAGS:STRING=-Wno-error
 
 # Flags used by the C compiler during all build types.
 CMAKE_C_FLAGS:STRING=-Wno-error
+```
+注： 
+
+-Werror ：所有警告当错误报。 
+
+-Werror=  将指定的警告转换为错误。
+
+反过来：
+
+-Wno-error取消编译选项-Werror
+
+
+## 2.2 编译提示[-Werror=maybe-unintialized]报错
+在 CMakeCache.txt 中设置
+```shell
+CMAKE_CXX_FLAGS:STRING=-Wno-error -Wno-error=maybe-unintialized
+CMAKE_C_FLAGS:STRING=-Wno-error -Wno-error=maybe-unintialized
 ```
 
 或 cmake 之前设置环境变量 
