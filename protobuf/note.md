@@ -51,7 +51,7 @@ message AddressBook {
 ## Compiling Your Protocol Buffers
 
 ```shell
-protoc -I=$SRC_DIR --cpp_out=$DST_DIR $SRC_DIR/addressbook.proto
+protoc    -I=$SRC_DIR    --cpp_out=$DST_DIR     $SRC_DIR/addressbook.proto
 ```
 
 ## The Protocol Buffer API

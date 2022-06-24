@@ -1,5 +1,10 @@
 
 # 1.简单 cmake 操作
+
+**安装 cmake**
+[cmake仓库代码]https://gitlab.kitware.com/cmake/cmake
+[cmake官方release](https://github.com/Kitware/CMake/releases)
+
 ## 1.1 查看所有的target
 ```shell
 cmake --build . --target help  

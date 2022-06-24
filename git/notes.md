@@ -44,6 +44,10 @@ a/**/b: 忽略a/b, a/x/b, a/x/y/b等
 config.php: 忽略当前路径的 config.php 文件
 
 ```
+7. 拉取子仓库
+```shell
+git submodule update --init --recursive
+```
 # git stash 详解
 [参考文档](https://blog.csdn.net/stone_yw/article/details/80795669)
 

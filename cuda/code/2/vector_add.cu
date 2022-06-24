@@ -1,6 +1,5 @@
 // 两个向量加法kernel，grid和block均为一维
-__global__ void add(float* x, float * y, float* z, int n)
-{
+__device__ float* add_2(float* x, float * y, float* z, int n) {
     // 获取该线程的全局索引
     int index = threadIdx.x + blockIdx.x * blockDim.x;
     // 步长(线程总数)
@@ -9,11 +8,14 @@ __global__ void add(float* x, float * y, float* z, int n)
     {
         z[i] = x[i] + y[i];
     }
+    return z;
+}
+__global__ void add(float* x, float * y, float* z, int n)
+{
+    add_2(x, y, z, n);
 }
 
 #include <iostream>
-#include "cuda_runtime.h"  
-
 int main()
 {
     int N = 1 << 20; //(1048576)
