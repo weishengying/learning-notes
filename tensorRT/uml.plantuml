@@ -1,0 +1,46 @@
+@startuml
+
+IPluginV2 <|.. IPluginV2Ext
+IPluginV2Ext <|.. IPluginV2IOExt
+
+class IPluginV2{
+  + virtual int32_t getTensorRTVersion() { }
+  + virtual AsciiChar const* getPluginType() = 0
+  + virtual AsciiChar const* getPluginVersion() = 0
+  + virtual int32_t getNbOutputs() = 0
+  + virtual Dims getOutputDimensions(int32_t index, ...) = 0
+  + virtual bool supportsFormat(DataType type, PluginFormat format) = 0
+  + virtual void configureWithFormat(Dims const* inputDims, ...) = 0
+  + virtual int32_t initialize() = 0
+  + virtual void terminate() = 0
+  + virtual size_t getWorkspaceSize(int32_t maxBatchSize) = 0
+  + virtual int32_t enqueue(int32_t batchSize, ...) = 0 
+  + virtual size_t getSerializationSize() = 0
+  + virtual void serialize(void* buffer) = 0
+  + virtual void destroy() = 0
+  + virtual IPluginV2* clone() = 0
+  + virtual void setPluginNamespace(AsciiChar const* pluginNamespace) = 0
+  + virtual AsciiChar const* getPluginNamespace() = 0
+}
+
+class IPluginV2Ext{
+  + virtual nvinfer1::DataType getOutputDataType(int32_t index, ...) = 0
+  + virtual bool isOutputBroadcastAcrossBatch(int32_t outputIndex, ...) = 0
+  + virtual bool canBroadcastInputAcrossBatch(int32_t inputIndex) = 0
+  + virtual void configurePlugin(Dims const* inputDims, ...) = 0
+  + virtual void attachToContext(cudnnContext* ...) { }
+  + virtual void detachFromContext() { }
+  + IPluginV2Ext* clone() = 0;
+  - int32_t getTensorRTVersion() { }
+  - void configureWithFormat(Dims const* ...) { }
+}
+
+class IPluginV2IOExt{
+  + virtual void configurePlugin(PluginTensorDesc const* in...) = 0
+  + virtual bool supportsFormatCombination(int32_t pos, ...) = 0
+  - int32_t getTensorRTVersion() { }
+  - void configurePlugin(Dims const*, ...) { }
+  - bool supportsFormat(DataType, PluginFormat) { }
+}
+
+@enduml
