@@ -7,8 +7,7 @@
 
 [[CSDN] TensorRT 初探（3）—— explicit_batch vs implicit_batch](https://blog.csdn.net/weixin_45252450/article/details/124691175)
 
-# 1 tensorRT 自定义 layer
-[官网资料 —— 自定义layer](https://docs.nvidia.com/deeplearning/tensorrt/developer-guide/index.html#add_custom_layer)
-
-
-[1.1 自定义 relu op](./code/1/1.1)
+# 2 tensorRT 自定义 layer
+[code/2.1 -- 一个极简的demo（leak_relu）] (./code/2.1)
+[code/2.2 -- 更官方的使用plugin] (./code/2.2)
+[code/2.3 -- IPluginV2Ext的demo] (./code/2.3)

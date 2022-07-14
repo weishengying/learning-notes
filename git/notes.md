@@ -26,6 +26,7 @@ clone新的项目时，拼接token和http链接：https://$GH_TOKEN@github.com/o
 ```shell
 git remote rm origin
 git remote add origin https://$GH_TOKEN@github.com/owner/repo.git
+https://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@github.com/weishengying/Paddle-Lite.git
 ```
 6. .gitignore的用法
 

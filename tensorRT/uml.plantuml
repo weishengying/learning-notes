@@ -2,6 +2,7 @@
 
 IPluginV2 <|.. IPluginV2Ext
 IPluginV2Ext <|.. IPluginV2IOExt
+IPluginV2Ext <|.. IPluginV2DynamicExt
 
 class IPluginV2{
   + virtual int32_t getTensorRTVersion() { }
@@ -43,4 +44,7 @@ class IPluginV2IOExt{
   - bool supportsFormat(DataType, PluginFormat) { }
 }
 
+class IPluginV2DynamicExt{
+
+}
 @enduml

@@ -4,6 +4,10 @@
 # 【cuda基础】2.1 浅谈核函数
 [【cuda基础】2.1 浅谈核函数](https://blog.csdn.net/weixin_45252450/article/details/125367962)
 
+# 【cuda基础】2.2 组织并行线程
+[【cuda基础】2.2 组织并行线程](https://blog.csdn.net/weixin_45252450/article/details/125367962)
+
+[3.1 矩阵加法](./code/2/2.2/matrix_add.cc)
 
 # 【cuda基础】3.1 实现矩阵乘法(一)
 [【cuda基础】3.1 实现矩阵乘法(一)](https://blog.csdn.net/weixin_45252450/article/details/125374666)
